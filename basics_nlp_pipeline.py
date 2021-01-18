@@ -1,4 +1,3 @@
-#%% 
 import torch
 import torchtext
 from collections import Counter, defaultdict
@@ -14,7 +13,7 @@ from collections import Counter, defaultdict
 # Batching:
 # Embedding Lookup:
 
-# %%
+
 # 1: tokenize
 sentence = "The quick brown fox jumped over the lazy dog"
 sentence = sentence.lower()
@@ -22,7 +21,6 @@ sentence = sentence.split(" ")
 
 some_sentences = [sentence]
 
-#%%
 
 # 2: vocab:
 vocab = set(tokens)
@@ -45,7 +43,7 @@ min_freq = 1
 itos = [word for word, value in freq.most_common(max_vocab)
                                    if value >= min_freq]
 itos
-# %%
+
 
 # 3: Numericalize
 
