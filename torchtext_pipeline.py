@@ -12,7 +12,7 @@ tokenize = lambda x: x.split()
 
 
 quote = Field(sequential=True, use_vocab=True, tokenize=tokenize, lower=True)
-score = Field(sequential=True, use_vocab=False)
+score = Field(sequential=False, use_vocab=False)
 
 fields = {'quote': ('q', quote), 'score':('s', score)}
 
