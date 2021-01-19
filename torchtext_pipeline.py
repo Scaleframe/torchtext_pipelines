@@ -6,11 +6,13 @@
 
 import torch
 from torchtext.data import Field, TabularDataset, BucketIterator
+import spacy
 
+spacy_en = spacy.load('en')
 
 # 1. Specify how preprocessing should be done:
-tokenize = lambda x: x.split()
-
+def tokenize(text): 
+    return [tok.text for tok in spacy_en.tokenizer(text)]
 
 quote = Field(sequential=True, use_vocab=True, tokenize=tokenize, lower=True)
 score = Field(sequential=False, use_vocab=False)
@@ -51,6 +53,7 @@ train_data, test_data = TabularDataset.splits(
 # Build vocab from corpus. "Quotes", from example files
 quote.build_vocab(train_data, 
                   max_size=10000,
+                #   vectors='glove.68.100d',  
                   min_freq=1)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -70,6 +73,4 @@ for batch in train_iterator:
     print(batch.s)
     # shape (1, 2), (1,1) (batch size 2) 
     # numericalized score field. 
-
-
 
