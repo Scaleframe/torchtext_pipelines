@@ -4,6 +4,7 @@
 # 2. Use Dataset to load the data -> TabularDataset
 # 3. Contstruct an iterator to do batching and padding -> BucketIterator
 
+import torch
 from torchtext.data import Field, TabularDataset, BucketIterator
 
 
@@ -52,9 +53,23 @@ quote.build_vocab(train_data,
                   max_size=10000,
                   min_freq=1)
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # 3. Construct an iterator to do batching a padding:
 train_iterator, test_iterator = BucketIterator.splits(
     (train_data, test_data),
     batch_size=2, 
-    device="cuda")
+    device=device)
+
+
+# train_iterator
+for batch in train_iterator:
+    print(batch.q)
+    # output is 2 tensors, of shape(14,2), (14,1) (batch size 2) 
+    # represents numericalized quote field
+    print(batch.s)
+    # shape (1, 2), (1,1) (batch size 2) 
+    # numericalized score field. 
+
+
+
