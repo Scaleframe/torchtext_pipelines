@@ -15,11 +15,15 @@ from sklearn.model_selection import train_test_split # use for train test splitt
 
 
 # First we need to get our data read in from our text files. 
-english_text = open('mydata/WMT_train.en', encoding='utf8').read().split('\n')
+
+# Read in file line by line (first 100 lines) to prevent memory overflow:
+with open('mydata/WMT_train.en') as myfile:
+    english_text = [next(myfile) for line in range(100)]
 # returns list of strings, english sentences
 
 
-german_text = open('mydata/WMT_train.de', encoding='utf8').read().split('\n')
+with open('mydata/WMT_train.de') as myfile:
+    german_text = [next(myfile) for x in range(100)]
 # returns: list of strings, german sentences.
 
 '''
